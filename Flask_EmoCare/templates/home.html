@@ -1,0 +1,24 @@
+<!-- first.html -->
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta name="viewport" content="width=device-width", initial-scale="1.0">
+        
+        {% if title %}
+            <title>EmoCare - {{title}}</title>
+        {% else %}
+            <title>EmoCare</title>
+        {% endif %}
+        
+        <link rel="stylesheet" href="first.css">
+    </head>
+    <body>
+        <di class="title">
+            <h1>Excelsior</h1>
+        </di>
+        <div class="container">
+            <a href="index.html" class="switch-button">Doctor</a>
+            <a href="Patient.html" class="switch-button">Patient</a>
+        </div>
+    </body>
+</html>
