@@ -9,11 +9,11 @@ def home():
 
 @app.route("/doctor")
 def doctor():
-    return render_template('doctor.html')
+    return render_template('doctor.html' , title = 'Doctor - Login/Signup')
 
 @app.route("/patient")
 def patient():
-    return render_template('patient.html')
+    return render_template('patient.html', title = 'Patient - Login/Signup')
 
 
 # To run this code in the command prompt write : python flaskpage.py
