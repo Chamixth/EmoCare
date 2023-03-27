@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  {% if title %}
+  <title>{{title}}</title>
+  {% else %}
+  <title>EmoCare</title>
+  {% endif %}
+  <!-- <link rel="stylesheet" type="text/css"
+    href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.5.0/css/bootstrap.min.css">
+  <link rel="stylesheet" href="https://unicons.iconscout.com/release/v2.1.9/css/unicons.css">
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800;900&display=swap"
+    rel="stylesheet">
+  <link rel="stylesheet" href="/static/style.css" /> -->
+</head>
+
+<body>
+  <div class="section">
+    <div class="container">
+      <div class="row full-height justify-content-center">
+        <div class="col-12 text-center align-self-center py-5">
+          <div class="section pb-5 pt-5 pt-sm-2 text-center">
+            <h6 class="mb-0 pb-3">
+              <span>User Sign Up</span>
+            </h6>
+            <div class="card-3d-wrap mx-auto">
+              <div class="card-3d-wrapper">
+                <div class="card-back">
+                  <div class="center-wrap">
+                    <div class="section text-center">
+                      <h4 class="mb-4 pb-3">User Sign Up</h4>
+                      {% with messages = get_flashed_messages() %}
+                      {% if messages %}
+                      <div class="notification is-danger">
+                        {{ messages[0] }}. Go to <a href="{{ url_for('home') }}">login page</a>.
+                      </div>
+                      {% endif %}
+                      {% endwith %}
+                      <form method="POST" action="/signup">
+                         <!-- Give the role ids in the value -->
+                        <input type="radio" name="options" id="option1" value=1 required> Doctor </input>
+                        <input type="radio" name="options" id="option2" value=2 > Patient </input>
+                        <div class="form-group">
+                          <input type="text" name="name" class="form-style" placeholder="Your Name" id="logname"
+                            autocomplete="off">
+                          <i class="input-icon uil uil-user"></i>
+                        </div>
+                        <div class="form-group mt-2">
+                          <input type="email" name="email" class="form-style" placeholder="Your Email" id="logemail"
+                            autocomplete="off">
+                          <i class="input-icon uil uil-at"></i>
+                        </div>
+                        <div class="form-group mt-2">
+                          <input type="text" name="username" class="form-style" placeholder="Your Username"
+                            id="logusername" autocomplete="off">
+                          <i class="input-icon uil uil-user"></i>
+                        </div>
+                        <div class="form-group mt-2">
+                          <input type="password" name="password" class="form-style" placeholder="Your Password"
+                            id="logpass" autocomplete="off">
+                          <i class="input-icon uil uil-lock-alt"></i>
+                        </div>
+                        <button class="btn mt-4">Submit</button>
+                      </form>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</body>
+
+</html>
