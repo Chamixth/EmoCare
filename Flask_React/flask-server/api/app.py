@@ -1,7 +1,7 @@
-from flask import Flask, render_template, url_for, redirect , request, flash
+from flask import Flask, render_template, url_for, redirect , request, flash, jsonify
 from flask_sqlalchemy import SQLAlchemy 
 from flask_login import login_manager, UserMixin, login_user, LoginManager, login_required,logout_user,current_user
-from flask_security import Security, SQLAlchemySessionUserDatastore
+from flask_security import UserMixin, RoleMixin, Security, SQLAlchemySessionUserDatastore, roles_accepted, login_required
   
 # from flask_wtf import FlaskForm
 # from wtforms import StringField, PasswordField, SubmitField
@@ -26,6 +26,9 @@ app = Flask(__name__)
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///C:/Users/User/GitHub/EmoCare/Flask_React/flask-server/api/emocare.db'
 app.config['SECRET_KEY'] = 'thisisasecretkey'
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
+app.config['SECURIT_PASSWORD_SALT']='thisisasecretsalt'
+app.config['SECURITY_REGISTERABLE']= True
+app.config['SECURITY_SEND_REGISTER_EMAIL'] = False
 
 # db = SQLAlchemy(app)
 db.init_app(app)
@@ -51,10 +54,24 @@ def home():
  
 
 @app.route('/patient/dashboard')
+@roles_accepted('Patient')
 def patientDashboard():
     return "Welcome to patient dashboard"
 
+@app.route('/all/doctors', methods=['GET','POST'])
+def all_doctors():
+    doctors = []
+    role_doctors = db.session.query(user_roles).filter_by(role_id =1)
+    for doctor in role_doctors:
+        user = User.query.filter_by(id=doctor.user_id).first()
+        doctors.append({'Doctor_id' : user.id, 'Doctor name' : user.name , 'Doctor email': user.email})
+    return jsonify ({'doctors': doctors})
+
+# @app.route('/create/request/<int:user.id>', method=['POST'])
+# def create_request()
+
 @app.route('/doctor/dashboard')
+@roles_accepted('Doctor')
 def doctorDashboard():
     return "Welcome to doctor dashboard"
 

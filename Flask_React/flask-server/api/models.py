@@ -1,15 +1,19 @@
 from flask_sqlalchemy import SQLAlchemy
 from flask_login import UserMixin 
+from flask_security import UserMixin,RoleMixin
+
 
 db = SQLAlchemy()
 #user data model 
 #Role data model 
 
-class Role(db.Model):
+
+class Role(db.Model,RoleMixin):
     __tablename__ = 'roles'
     id = db.Column(db.Integer(), primary_key=True)
     name = db.Column(db.String(50), unique=True)
-    
+
+
 class User(db.Model,UserMixin):
     __tablename__ = 'users'
     id = db.Column(db.Integer,primary_key=True)
@@ -42,3 +46,6 @@ class Doctor(db.Model, UserMixin):
     doctorName =  db.Column(db.String(1000))
     doctorEmail = db.Column(db.String(100))
     doctorPassword = db.Column(db.String(80))
+
+# class Request(db.Model):
+    
