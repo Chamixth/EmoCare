@@ -2,13 +2,14 @@ from flask import Flask, render_template, url_for, redirect , request, flash, js
 from flask_sqlalchemy import SQLAlchemy 
 from flask_login import login_manager, UserMixin, login_user, LoginManager, login_required,logout_user,current_user
 from flask_security import UserMixin, RoleMixin, Security, SQLAlchemySessionUserDatastore, roles_accepted, login_required
+from datetime import datetime,date
   
 # from flask_wtf import FlaskForm
 # from wtforms import StringField, PasswordField, SubmitField
 # from wtforms.validators import InputRequired, Length, ValidationError
 from flask_bcrypt import Bcrypt
 from models import db
-from models import Patient,Doctor,User,Role,user_roles
+from models import Patient,Doctor,User,Role,user_roles, Request
 
 # To create the db:
 # python
@@ -67,9 +68,45 @@ def all_doctors():
         doctors.append({'Doctor_id' : user.id, 'Doctor name' : user.name , 'Doctor email': user.email})
     return jsonify ({'doctors': doctors})
 
-# @app.route('/create/request/<int:user.id>', method=['POST'])
-# def create_request()
+# for patients to send requests to doctors
+@app.route('/request/<selected_doctor_id>', methods =['GET','POST'])
+def createRequest(selected_doctor_id):
+    if request.method == 'POST':    
+        if current_user.is_authenticated:
+            patient_id = request.form.get('patient_id')
+            date = request.form.get('meeting_date')
+            time = request.form.get('meeting_time')
+            new_request = Request(doctor_id=selected_doctor_id,patient_id=patient_id, meeting_date=date, meeting_time=time)
+            db.session.add(new_request)
+            db.session.commit()
+            return redirect(url_for('patientDashboard'))
+        else:
+            return redirect(url_for('UserLogIn'))
+    elif request.method == 'GET':
+        if current_user.is_authenticated:
+            patient_id = current_user.id
+        else:
+            return redirect(url_for('UserLogIn'))
+    return render_template('request.html', doctor_id=selected_doctor_id, patient_id=patient_id)
 
+# To view requests made by a patient
+
+# A logged in doctor to see the requests recieved
+@app.route('/view/requests')
+def viewRequest():
+    requests = []
+    if current_user.is_authenticated:
+    new_request = Request.query.filter_by(doctor_id=current_user.id).all()
+        for request in requests:
+            requests.append({'Request ID': , 'Patient ID':, 'Meeting date': , 'Meeting date':}'')
+        return jsonify({'Requests':requests})
+
+# Accept a request - add to consultation 
+
+# decline a request DELETE - inform the patient 
+
+# view all accepted consultation details 
+    
 @app.route('/doctor/dashboard')
 @roles_accepted('Doctor')
 def doctorDashboard():

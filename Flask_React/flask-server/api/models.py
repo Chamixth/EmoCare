@@ -1,6 +1,7 @@
 from flask_sqlalchemy import SQLAlchemy
 from flask_login import UserMixin 
 from flask_security import UserMixin,RoleMixin
+from datetime import datetime,date
 
 
 db = SQLAlchemy()
@@ -25,7 +26,6 @@ class User(db.Model,UserMixin):
     roles = db.relationship('Role', secondary='user_roles' , backref='user')
     role_id = db.Column(db.Integer, db.ForeignKey('roles.id'))
 
-
 # Define the user_roles association table
 user_roles = db.Table('user_roles',
     db.Column('user_id', db.Integer(), db.ForeignKey('users.id', ondelete='CASCADE')),
@@ -47,5 +47,13 @@ class Doctor(db.Model, UserMixin):
     doctorEmail = db.Column(db.String(100))
     doctorPassword = db.Column(db.String(80))
 
-# class Request(db.Model):
+class Request(db.Model):
+    id = db.Column(db.Integer,primary_key=True)
+    doctor_id = db.Column(db.Integer, db.ForeignKey('users.id'))
+    patient_id = db.Column(db.Integer, db.ForeignKey('users.id'))
+    meeting_date = db.Column(db.String,nullable=False)
+    meeting_time = db.Column(db.String,nullable=False)
+
+    doctor_ref = db.relationship("User", uselist=False, foreign_keys=[doctor_id])
+    patient_ref = db.relationship("User", uselist=False, foreign_keys=[patient_id])
     
