@@ -77,6 +77,27 @@
     color: #0d9efe;
   }
   
+  .navbar-button-1{
+    background-color: #2dc3c9;
+    color: #FFFFFF;
+    font-size: 10px;
+    border: none;
+    border-radius: 30px;
+    padding: 10px 20px;
+    cursor: pointer;
+    transition: all 0.3s ease-in-out;
+  }
+
+  .navbar-button-2{
+    background-color: #2dc3c9;
+    color: #FFFFFF;
+    font-size: 10px;
+    border: none;
+    border-radius: 30px;
+    padding: 10px 20px;
+    cursor: pointer;
+    transition: all 0.3s ease-in-out;
+  }
   .home-container {
     display: flex;
     justify-content: center;
