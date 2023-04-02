@@ -90,16 +90,30 @@ def createRequest(selected_doctor_id):
     return render_template('request.html', doctor_id=selected_doctor_id, patient_id=patient_id)
 
 # To view requests made by a patient
+@app.route('/my/requests')
+def myRequests():
+    requests = []
+    if current_user.is_authenticated:
+        my_requests = Request.query.filter_by(patient_id=current_user.id)
+        for request in my_requests:
+            requests.append({'Request ID ': request.id , 'Patient ID ': request.patient_id, 'Doctor ID ' : request.doctor_id})
+        return jsonify({'My Requests ': requests})
+    else:
+        return redirect(url_for('UserLogIn'))
+
 
 # A logged in doctor to see the requests recieved
 @app.route('/view/requests')
 def viewRequest():
     requests = []
     if current_user.is_authenticated:
-    new_request = Request.query.filter_by(doctor_id=current_user.id).all()
-        for request in requests:
-            requests.append({'Request ID': , 'Patient ID':, 'Meeting date': , 'Meeting date':}'')
+        new_request = Request.query.filter_by(doctor_id=current_user.id)
+        for request in new_request:
+            requests.append({'Request ID ': request.id , 'Patient ID': request.patient_id, 'Meeting date': request.meeting_date, 'Meeting time': request.meeting_time})
         return jsonify({'Requests':requests})
+    else:
+        return redirect(url_for('UserLogIn'))
+
 
 # Accept a request - add to consultation 
 
