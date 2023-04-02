@@ -1,7 +1,14 @@
 import { Link, useMatch, useResolvedPath, useNavigate } from "react-router-dom";
+import { useState } from "react";
 
 export default function Navbar() {
   const Navigate = useNavigate();
+  const [isOpen, setIsOpen] = useState(false);
+
+  function toggleMenu() {
+    setIsOpen(!isOpen);
+  }
+
   return (
     <div className="navbar-wrapper">
       <nav className="nav">
@@ -10,7 +17,10 @@ export default function Navbar() {
             <span>Emo</span>Care
           </p>
         </Link>
-        <ul>
+        <button className="navbar-toggle" onClick={toggleMenu}>
+          <span className="navbar-toggle-icon">&#9776;</span>
+        </button>
+        <ul className={`navbar-menu ${isOpen ? "navbar-menu-open" : ""}`}>
           <CustomLink to="/">Home</CustomLink>
           <CustomLink to="/about">About</CustomLink>
           <CustomLink to="/help">Services</CustomLink>
