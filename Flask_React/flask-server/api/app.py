@@ -60,6 +60,7 @@ def patientDashboard():
     return "Welcome to patient dashboard"
 
 @app.route('/all/doctors', methods=['GET','POST'])
+@roles_accepted('Patient')
 def all_doctors():
     doctors = []
     role_doctors = db.session.query(user_roles).filter_by(role_id =1)
@@ -70,6 +71,7 @@ def all_doctors():
 
 # for patients to send requests to doctors
 @app.route('/request/<selected_doctor_id>', methods =['GET','POST'])
+@roles_accepted('Patient')
 def createRequest(selected_doctor_id):
     if request.method == 'POST':    
         if current_user.is_authenticated:
@@ -91,6 +93,7 @@ def createRequest(selected_doctor_id):
 
 # To view requests made by a patient
 @app.route('/my/requests')
+@roles_accepted('Patient')
 def myRequests():
     requests = []
     if current_user.is_authenticated:
@@ -107,6 +110,7 @@ def myRequests():
 
 # A logged in doctor to see the requests recieved
 @app.route('/view/requests')
+@roles_accepted('Doctor')
 def viewRequest():
     requests = []
     if current_user.is_authenticated:
@@ -120,6 +124,7 @@ def viewRequest():
 
 # Accept a request - add to consultation - decline a request DELETE - inform the patient 
 @app.route('/view/requests/<selected_request_id>' , methods = ['GET','POST'])
+@roles_accepted('Doctor')
 def acceptRequest(selected_request_id):
     if request.method =='POST':
         if request.form['action'] == "Accept":
@@ -140,6 +145,7 @@ def acceptRequest(selected_request_id):
    
 # view all accepted consultation details 
 @app.route('/my/consultations')
+@roles_accepted('Doctor')
 def myConsultation():
     consults = []
     if current_user.is_authenticated:
