@@ -53,7 +53,22 @@ class Request(db.Model):
     patient_id = db.Column(db.Integer, db.ForeignKey('users.id'))
     meeting_date = db.Column(db.String,nullable=False)
     meeting_time = db.Column(db.String,nullable=False)
+    decline = db.Column(db.Boolean, default=False)
 
     doctor_ref = db.relationship("User", uselist=False, foreign_keys=[doctor_id])
     patient_ref = db.relationship("User", uselist=False, foreign_keys=[patient_id])
+
+class Consultation(db.Model):
+    id = db.Column(db.Integer,primary_key=True)
+    doctor_id = db.Column(db.Integer, db.ForeignKey('users.id'))
+    patient_id = db.Column(db.Integer, db.ForeignKey('users.id'))
+    meeting_date = db.Column(db.String,nullable=False)
+    meeting_time = db.Column(db.String,nullable=False)
+    request_id = db.Column(db.Integer, db.ForeignKey('request.id'))
+
+    doctor_ref = db.relationship("User", uselist=False, foreign_keys=[doctor_id])
+    patient_ref = db.relationship("User", uselist=False, foreign_keys=[patient_id])
+    request_ref = db.relationship("Request", uselist=False, foreign_keys=[request_id])
+
+
     

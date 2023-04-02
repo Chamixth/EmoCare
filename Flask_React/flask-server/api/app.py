@@ -1,4 +1,4 @@
-from flask import Flask, render_template, url_for, redirect , request, flash, jsonify
+from flask import Flask, render_template, url_for, redirect , request , flash, jsonify
 from flask_sqlalchemy import SQLAlchemy 
 from flask_login import login_manager, UserMixin, login_user, LoginManager, login_required,logout_user,current_user
 from flask_security import UserMixin, RoleMixin, Security, SQLAlchemySessionUserDatastore, roles_accepted, login_required
@@ -9,7 +9,7 @@ from datetime import datetime,date
 # from wtforms.validators import InputRequired, Length, ValidationError
 from flask_bcrypt import Bcrypt
 from models import db
-from models import Patient,Doctor,User,Role,user_roles, Request
+from models import Patient,Doctor,User,Role,user_roles, Request, Consultation
 
 # To create the db:
 # python
@@ -96,7 +96,10 @@ def myRequests():
     if current_user.is_authenticated:
         my_requests = Request.query.filter_by(patient_id=current_user.id)
         for request in my_requests:
-            requests.append({'Request ID ': request.id , 'Patient ID ': request.patient_id, 'Doctor ID ' : request.doctor_id})
+            if (request.decline==False):
+                requests.append({'Request ID ': request.id , 'Patient ID ': request.patient_id, 'Doctor ID ' : request.doctor_id,'Meeting date': request.meeting_date, 'Meeting time': request.meeting_time , 'Status' : "Accepted"})
+            else:
+                requests.append({'Request ID ': request.id , 'Patient ID ': request.patient_id, 'Doctor ID ' : request.doctor_id,'Meeting date': request.meeting_date, 'Meeting time': request.meeting_time , 'Status' : "Declined"})
         return jsonify({'My Requests ': requests})
     else:
         return redirect(url_for('UserLogIn'))
@@ -113,13 +116,40 @@ def viewRequest():
         return jsonify({'Requests':requests})
     else:
         return redirect(url_for('UserLogIn'))
+  
 
-
-# Accept a request - add to consultation 
-
-# decline a request DELETE - inform the patient 
-
+# Accept a request - add to consultation - decline a request DELETE - inform the patient 
+@app.route('/view/requests/<selected_request_id>' , methods = ['GET','POST'])
+def acceptRequest(selected_request_id):
+    if request.method =='POST':
+        if request.form['action'] == "Accept":
+            selected_request = Request.query.filter_by(id=selected_request_id).first()
+            new_consult = Consultation(request_id = selected_request_id,doctor_id=selected_request.doctor_id,patient_id=selected_request.patient_id, meeting_date=selected_request.meeting_date, meeting_time=selected_request.meeting_time)
+            db.session.add(new_consult)
+            db.session.commit()
+            return redirect(url_for('viewRequest'))
+        elif request.form['action'] == 'Delete':
+            selected_request = Request.query.get_or_404(selected_request_id)
+            selected_request.decline = True
+            db.session.commit()
+            # flash('Request declined.')
+            return redirect(url_for('viewRequest'))
+    elif request.method == 'GET':
+        selected_request = Request.query.filter_by(id=selected_request_id).first()
+    return render_template('acdelreq.html', request_id=selected_request_id)
+   
 # view all accepted consultation details 
+@app.route('/my/consultations')
+def myConsultation():
+    consults = []
+    if current_user.is_authenticated:
+        new_consult = Consultation.query.filter_by(doctor_id=current_user.id)
+        for consult in new_consult:
+            consults.append({'Consultation ID': consult.id, 'Request ID ': consult.request_id ,'Doctor ID':consult.doctor_id, 'Patient ID': consult.patient_id, 'Meeting date': consult.meeting_date, 'Meeting time': consult.meeting_time})
+        return jsonify({'COnsultations':consults})
+    else:
+        return redirect(url_for('UserLogIn'))
+
     
 @app.route('/doctor/dashboard')
 @roles_accepted('Doctor')
