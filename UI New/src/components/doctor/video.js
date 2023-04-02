@@ -42,7 +42,7 @@ export default function Video() {
                 rtcProps={{
                   appId: '15cb7bee7eae4a78a31dc66d95b1f927',
                   channel: 'test',
-                  token: '007eJxTYHA8/khxUiLzpQuJji29dU/8TdSV5X8uZ9/kvvq9r8WhB6sUGAxNk5PMk1JTzVMTU00SzS0SjQ1Tks3MUixNkwzTLI3Me2aKpDQEMjJ0BMxjZGSAQBCfhaEktbiEgQEAYVofyQ==', // add your token if using app in secured mode
+                  token: '007eJxTYJiWc33Wod/Kcu1bJr6+wyC3XNKgbeHl151HNrVO3ZwSyd+mwGBompxknpSaap6amGqSaG6RaGyYkmxmlmJpmmSYZmlknimtntIQyMiQaKjCzMgAgSA+C0NJanEJAwMAxO0f4w==', // add your token if using app in secured mode
                   role: isHost ? 'host' : 'audience',
                   layout: isPinned ? layout.pin : layout.grid,
                   enableScreensharing: false
@@ -59,6 +59,9 @@ export default function Video() {
                   }
                 }}
               />
+              <div style={{backgroundColor:"rgb(0, 123, 255)",display:"flex",justifyContent:"center",alignItems:"center"}}>
+                <button className={"btn-video"}>Button</button>
+              </div>
             </>
           ) : (
             <div style={styles.nav}>
