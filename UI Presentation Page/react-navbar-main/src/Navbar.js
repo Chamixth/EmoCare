@@ -22,7 +22,7 @@ export default function Navbar() {
         </button>
         <ul className={`navbar-menu ${isOpen ? "navbar-menu-open" : ""}`}>
           <CustomLink to="/">Home</CustomLink>
-          <CustomLink to="/about">About</CustomLink>
+          <CustomLink to="/about">About Us</CustomLink>
           <CustomLink to="/help">Services</CustomLink>
           <button
             className="navbar-button-1"
