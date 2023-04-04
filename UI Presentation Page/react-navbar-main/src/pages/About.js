@@ -18,10 +18,10 @@ const About = () => {
               <img src={Member1} alt="" />
             </div>
             <div class="name-member">
-              <h3>Chamith</h3>
+              <h3>Chamith Weerasinghe</h3>
             </div>
             <div class="pro">
-              <button> IIT </button>
+              <button>w1899316</button>
             </div>
           </div>
           <div class="member">
@@ -29,10 +29,10 @@ const About = () => {
               <img src={Member2} alt="" />
             </div>
             <div class="name-member">
-              <h3>iphone</h3>
+              <h3>Sathmi Jayarathne</h3>
             </div>
             <div class="pro">
-              <button> IIT </button>
+              <button>w1000000</button>
             </div>
           </div>
           <div class="member">
@@ -40,10 +40,10 @@ const About = () => {
               <img src={Member3} alt="" />
             </div>
             <div class="name-member">
-              <h3>laptop</h3>
+              <h3>Navod Dilshan</h3>
             </div>
             <div class="pro">
-              <button> IIT </button>
+              <button>20211180</button>
             </div>
           </div>
           <div class="member">
@@ -51,10 +51,10 @@ const About = () => {
               <img src={Member4} alt="" />
             </div>
             <div class="name-member">
-              <h3>iphone</h3>
+              <h3>Yasara Kithmini</h3>
             </div>
             <div class="pro">
-              <button> IIT </button>
+              <button>w1000000</button>
             </div>
           </div>
           <div class="member">
@@ -62,10 +62,10 @@ const About = () => {
               <img src={Member5} alt="" />
             </div>
             <div class="name-member">
-              <h3>watch</h3>
+              <h3>Sivapperujan</h3>
             </div>
             <div class="pro">
-              <button> IIT </button>
+              <button>w1000000</button>
             </div>
           </div>
         </div>
