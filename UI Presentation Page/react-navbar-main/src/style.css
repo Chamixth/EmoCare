@@ -270,7 +270,7 @@
   display: flex;
   justify-content: center;
   flex-wrap: wrap;
-  gap: 40px;
+  gap: 30px;
 }
 .member{
   position: relative;
@@ -296,22 +296,20 @@
   place-content: center;
 }
 .image img{
-  width: 150px;
+  width: 120px;
 }
 .name-member{
   width: 100%;
+  margin-top: 10%;
   display: flex;
   justify-content: space-between;
 }
 .name-member h3{
-  font-size: 2em;
+  font-size: 1.3em;
   text-transform: capitalize;
   color: var(--textColor);
 }
-.name-member span{
-  font-size: 1.5em;
-  color: var(--starColor);
-}
+
 .member p{
   font-size: 18px;
   line-height: 25px;
@@ -331,7 +329,7 @@
   border: none;
   background-color: var(--textColor);
   color: var(--sectionBack);
-  font-size: 18px;
+  font-size: 15px;
   text-transform: capitalize;
   cursor: pointer;
   transition: .5s;
