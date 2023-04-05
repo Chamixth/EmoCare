@@ -20,7 +20,7 @@ function App() {
         <Route path='/video' element={<Video />} />
         <Route path='/login' element={<Login />} />
         <Route path='/edit-profile' element={<EditProfile />} />
-        <Route path='/' element={<Home />} />
+        <Route path='/' element={<Login />} />
         <Route path='/doctor' element={<Doctor />} />
 
 
