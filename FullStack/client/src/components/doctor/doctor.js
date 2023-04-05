@@ -40,42 +40,48 @@ export default function Doctor() {
                  alt='likes' />
           </div>
 
-          <div class='box box3'>
+          <div class='box box3'onClick={()=> {
+            // navigate('/')
+          }}>
             <div class='text'>
               <h2 class='topic-heading'></h2>
-              <h2 class='topic'>Reviws</h2>
+              <h2 class='topic'>All Requests</h2>
             </div>
 
             <img src={img02}
                  alt='comments' />
           </div>
 
-          <div class='box box4'>
+          <div class='box box3' onClick={()=> {
+             navigate('/my/consultations')
+          }}>
             <div class='text'>
               <h2 class='topic-heading'></h2>
-              <h2 class='topic'>Attendies</h2>
+              <h2 class='topic'>Consultations</h2>
             </div>
 
-            <img src={img03} alt='logo' />
+            <img src={img02}
+                 alt='comments' />
           </div>
+
         </div>
 
-        <div class='report-container'>
+        {/* <div class='report-container'>
           <div class='report-header'>
-            <h1 class='recent-Articles'>Recent Patients</h1>
-            <button class='view'>View All</button>
+            <h1 class='recent-Articles'>Consultations</h1>
           </div>
 
           <div class='report-body'>
             <div class='report-topic-heading'>
-              <h3 class='t-op'>Name</h3>
-              <h3 class='t-op'>Hours</h3>
-              <h3 class='t-op'>Report</h3>
-              <h3 class='t-op'>Status</h3>
+              <h3 class='t-op'>Consultation ID</h3>
+              <h3 class='t-op'>Request ID</h3>
+              <h3 class='t-op'>Patient ID</h3>
+              <h3 class='t-op'>Meeting Date</h3>
+              <h3 class='t-op'>Meeting Time</h3>
             </div>
 
           </div>
-        </div>
+        </div> */}
       </Layout>
     </div>
   )
