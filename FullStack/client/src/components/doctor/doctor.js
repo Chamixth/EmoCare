@@ -60,7 +60,7 @@ export default function Doctor() {
               <h2 class='topic'>Consultations</h2>
             </div>
 
-            <img src={img02}
+            <img src={img03}
                  alt='comments' />
           </div>
 

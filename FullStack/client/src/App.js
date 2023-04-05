@@ -5,7 +5,7 @@ import Patient from './components/patient/patient'
 import { Route, Routes } from 'react-router-dom'
 import Video from './components/doctor/video'
 import PatientDashboard from './components/patient-dashboard/patient-dashboard'
-import Consultations from './components/consultations/consultations'
+import ConsultationsList from './components/consultations/consultations'
 import Login from './components/login/login'
 import EditProfile from './components/edit-profile/edit-profile'
 import NewHome from './pages/Main Home'
@@ -18,7 +18,7 @@ function App() {
     <div>
       <Routes>
         <Route path='/patient/dashboard' element={<PatientDashboard />} />
-        <Route path='/my/consultations' element={<Consultations/>}/>
+        <Route path='/my/consultations' element={<ConsultationsList/>}/>
         <Route path='/doctor/dashboard' element={<Doctor />} />
         <Route path='/patient' element={<Patient />} />
         <Route path='/video' element={<Video />} />
