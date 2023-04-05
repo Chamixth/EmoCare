@@ -24,7 +24,7 @@ const Home = () => {
           </p>
           <button
             className="secondary-button-1"
-            onClick={() => Navigate("/login")}
+            onClick={() => Navigate("/signin")}
           >
             Start{" "}
           </button>

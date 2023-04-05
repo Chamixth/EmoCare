@@ -1,7 +1,7 @@
 import React, {useState} from 'react'
 import { getType } from '../utils'
 import './login.css'
-import { useNavigate } from 'react-router-dom'
+import { Navigate, useNavigate } from 'react-router-dom'
 import Navbar from '../../pages/Navbar'
 
 
@@ -28,7 +28,7 @@ export default function Login() {
             {!signIn &&<div>
               <form>
                 <div class='login-form'>
-                  <div class='title'>Login</div>
+                  <div class='title'>Sign in</div>
                   <div class='input-boxes'>
                     <div class='input-box'>
                       <i class='fas fa-envelope'></i>
@@ -52,49 +52,13 @@ export default function Login() {
 
                       }}/>
                     </div>
-                    <div class='text sign-up-text'>Don't have an account? <label for='flip'>Signup now</label></div>
+                    <div class='text sign-up-text'>Don't have an account? <span className='link' for='flip' onClick={
+                      ()=> navigate("/signup")
+                    }>Signup now</span></div>
 
                   </div>
                 </div>
               </form>
-              <div className={"btn-logins"}>
-                <button className={"btn cursor-pointer"} onClick={(e) => {
-                  e.preventDefault()
-                  setSignIn("Doctor")
-                }}>Doctor</button>
-                <button className={"btn cursor-pointer"} onClick={(e) => {
-                  e.preventDefault()
-                  setSignIn("Patient")
-                }}>Patient</button>
-              </div>
-            </div>}
-            {(signIn === 'Doctor'||signIn === 'Patient') &&<div class='signup-form'>
-              <div class='title'>Sign up</div>
-              <div class='input-box'>
-                <i class='fas fa-user'></i>
-                <input type='text' placeholder='User Name' required/>
-              </div>
-              <div class='input-boxes'>
-                {signIn === 'Doctor' && <div class='input-box'>
-                  <i class='fas fa-envelope'></i>
-                  <input type='text' placeholder='DoctorID' required/>
-                </div>}
-                <div class='input-box'>
-                  <i class='fas fa-lock'></i>
-                  <input type='password' placeholder='Email' required/>
-                </div>
-                <div class='input-box'>
-                  <i class='fas fa-lock'></i>
-                  <input type='password' placeholder='Password' required/>
-                </div>
-                <div class='button input-box'>
-                  <i class='fas fa-envelope'></i>
-                  <input type='submit' value='Signup'/>
-                </div>
-                <div class='text sign-up-text'>Already have an account? <label for='flip'
-                                                                               onClick={() => setSignIn(null)}>Login
-                  now</label></div>
-              </div>
             </div>}
           </div>
         </form>

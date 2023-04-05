@@ -36,7 +36,7 @@ const About = () => {
               <h3>Sathmi Jayarathne</h3>
             </div>
             <div class="pro">
-              <button className="numb">w1000000</button>
+              <button className="numb">w1899311</button>
             </div>
           </div>
           <div class="member">
@@ -47,7 +47,7 @@ const About = () => {
               <h3>Navod Dilshan</h3>
             </div>
             <div class="pro">
-              <button className="numb">20211180</button>
+              <button className="numb">w1899300</button>
             </div>
           </div>
           <div class="member">
