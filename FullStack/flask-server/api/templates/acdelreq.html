@@ -1,27 +1,15 @@
-<!DOCTYPE html>
-<html>
-<meta name="viewport" content="width=device-width" , initial-scale="1.0">
+{% extends 'base.html' %}
 
-{% if title %}
-<title>EmoCare - {{title}}</title>
-{% else %}
-<title>EmoCare</title>
-{% endif %}
+{% block content %}
+<div class="title">
+    <h1>Request</h1>
+</div>
+<div class="container">
 
-<!-- <link rel="stylesheet" href="first.css"> -->
+    <form action="/view/requests/{{request_id}}" method="POST">
+        <input type="submit" name="action" value="Accept">
+        <input type="submit" name="action" value="Delete">
+    </form>
 
-<body>
-    <di class="title">
-        <h1>Request</h1>
-    </di>
-    <div class="container">
-
-        <form action="/view/requests/{{request_id}}" method="POST">
-            <input type="submit" name="action" value="Accept">
-            <input type="submit" name="action" value="Delete">
-        </form>
-
-    </div>
-</body>
-
-</html>
+</div>
+{% endblock %}

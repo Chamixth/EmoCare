@@ -59,7 +59,7 @@ def home():
 @app.route('/patient/dashboard')
 @roles_accepted('Patient')
 def patientDashboard():
-    return "Welcome to patient dashboard"
+    return render_template('patientDashboard.html')
 
 @app.route('/all/doctors', methods=['GET','POST'])
 @roles_accepted('Patient')
@@ -69,7 +69,8 @@ def all_doctors():
     for doctor in role_doctors:
         user = User.query.filter_by(id=doctor.user_id).first()
         doctors.append({'Doctor_id' : user.id, 'Doctor name' : user.name , 'Doctor email': user.email})
-    return jsonify ({'doctors': doctors})
+    # return jsonify ({'doctors': doctors})
+    return render_template('allDoctors.html', doctors = doctors)
 
 # for patients to send requests to doctors
 @app.route('/request/<selected_doctor_id>', methods =['GET','POST'])
@@ -121,7 +122,8 @@ def viewRequest():
         for request in new_request:
             if (request.status =="Pending"):
                 requests.append({'Request ID ': request.id , 'Patient ID': request.patient_id, 'Meeting date': request.meeting_date, 'Meeting time': request.meeting_time, 'Status': request.status})
-        return jsonify({'Requests':requests})
+        # return jsonify({'Requests':requests})
+        return render_template('viewRequest.html', requests = requests)
     else:
         return redirect(url_for('UserLogIn'))
   
@@ -157,7 +159,8 @@ def myConsultation():
         new_consult = Consultation.query.filter_by(doctor_id=current_user.id)
         for consult in new_consult:
             consults.append({'Consultation ID': consult.id, 'Request ID ': consult.request_id ,'Doctor ID':consult.doctor_id, 'Patient ID': consult.patient_id, 'Meeting date': consult.meeting_date, 'Meeting time': consult.meeting_time})
-        return jsonify({'Consultations':consults})
+        # return jsonify({'Consultations':consults})
+        return render_template('consultations.html',consultations=consults)
     else:
         return redirect(url_for('UserLogIn'))
 
@@ -184,7 +187,7 @@ def upload_video():
 @app.route('/doctor/dashboard')
 @roles_accepted('Doctor')
 def doctorDashboard():
-    return "Welcome to doctor dashboard"
+    return render_template('doctorDashboard.html')
 
 
 @app.route('/signup')

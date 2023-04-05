@@ -1,0 +1,27 @@
+{% block content %}
+  <h1>My Consultations</h1>
+  <table>
+    <thead>
+      <tr>
+        <th>Consultation ID</th>
+        <th>Request ID</th>
+        <th>Doctor ID</th>
+        <th>Patient ID</th>
+        <th>Meeting Date</th>
+        <th>Meeting Time</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for consult in consultations %}
+        <tr>
+          <td>{{ consult['Consultation ID'] }}</td>
+          <td>{{ consult['Request ID'] }}</td>
+          <td>{{ consult['Doctor ID'] }}</td>
+          <td>{{ consult['Patient ID'] }}</td>
+          <td>{{ consult['Meeting date'] }}</td>
+          <td>{{ consult['Meeting time'] }}</td>
+        </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+{% endblock %}

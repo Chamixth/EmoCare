@@ -1,0 +1,12 @@
+{% block content %}
+  <h1>All Doctors</h1>
+  <ul>
+    {% for doctor in doctors %}
+      <li>
+        <h2>{{ doctor["Doctor name"] }}</h2>
+        <p><strong>ID:</strong> {{ doctor["Doctor_id"] }}</p>
+        <p><strong>Email:</strong> {{ doctor["Doctor email"] }}</p>
+      </li>
+    {% endfor %}
+  </ul>
+{% endblock %}
