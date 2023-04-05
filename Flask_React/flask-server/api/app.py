@@ -2,14 +2,14 @@ from flask import Flask, render_template, url_for, redirect , request , flash, j
 from flask_sqlalchemy import SQLAlchemy 
 from flask_login import login_manager, UserMixin, login_user, LoginManager, login_required,logout_user,current_user
 from flask_security import UserMixin, RoleMixin, Security, SQLAlchemySessionUserDatastore, roles_accepted, login_required
-from datetime import datetime,date
+from datetime import datetime
   
 # from flask_wtf import FlaskForm
 # from wtforms import StringField, PasswordField, SubmitField
 # from wtforms.validators import InputRequired, Length, ValidationError
 from flask_bcrypt import Bcrypt
 from models import db
-from models import Patient,Doctor,User,Role,user_roles, Request, Consultation
+from models import User,Role,user_roles, Request, Consultation
 
 # To create the db:
 # python
@@ -23,8 +23,9 @@ from models import Patient,Doctor,User,Role,user_roles, Request, Consultation
 # & sqlite3.exe
 
 app = Flask(__name__)
-
-app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///C:/Users/User/GitHub/EmoCare/Flask_React/flask-server/api/emocare.db'
+# path to sqlite3 database
+# app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///C:/Users/User/GitHub/EmoCare/Flask_React/flask-server/api/emocare.db'
+app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql+pymysql://root:Password123@localhost/emocaredb'
 app.config['SECRET_KEY'] = 'thisisasecretkey'
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 app.config['SECURITY_PASSWORD_SALT']='thisisasecretsalt'

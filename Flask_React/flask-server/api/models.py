@@ -3,8 +3,6 @@ from flask_sqlalchemy import SQLAlchemy
 from flask_login import UserMixin 
 from flask_security import UserMixin,RoleMixin
 
-
-
 db = SQLAlchemy()
 #user data model 
 #Role data model 
@@ -52,9 +50,9 @@ class Request(db.Model):
     id = db.Column(db.Integer,primary_key=True)
     doctor_id = db.Column(db.Integer, db.ForeignKey('users.id'))
     patient_id = db.Column(db.Integer, db.ForeignKey('users.id'))
-    meeting_date = db.Column(db.String,nullable=False)
-    meeting_time = db.Column(db.String,nullable=False)
-    status = db.Column(db.String, default="Pending")
+    meeting_date = db.Column(db.String(50),nullable=False)
+    meeting_time = db.Column(db.String(50),nullable=False)
+    status = db.Column(db.String(50), default="Pending")
 
     doctor_ref = db.relationship("User", uselist=False, foreign_keys=[doctor_id])
     patient_ref = db.relationship("User", uselist=False, foreign_keys=[patient_id])
@@ -63,8 +61,8 @@ class Consultation(db.Model):
     id = db.Column(db.Integer,primary_key=True)
     doctor_id = db.Column(db.Integer, db.ForeignKey('users.id'))
     patient_id = db.Column(db.Integer, db.ForeignKey('users.id'))
-    meeting_date = db.Column(db.String,nullable=False)
-    meeting_time = db.Column(db.String,nullable=False)
+    meeting_date = db.Column(db.String(50),nullable=False)
+    meeting_time = db.Column(db.String(50),nullable=False)
     request_id = db.Column(db.Integer, db.ForeignKey('request.id'))
 
     doctor_ref = db.relationship("User", uselist=False, foreign_keys=[doctor_id])
