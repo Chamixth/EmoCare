@@ -152,12 +152,12 @@ form .form-content .button input:hover {
     background: #5b13b9;
 }
 
-form .form-content label {
+form .form-content span {
     color: #5b13b9;
     cursor: pointer;
 }
 
-form .form-content label:hover {
+form .form-content span:hover {
     text-decoration: underline;
 }
 

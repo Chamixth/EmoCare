@@ -26,7 +26,7 @@ export default function Navbar() {
           <CustomLink to="/help">Services</CustomLink>
           <button
             className="navbar-button-1"
-            onClick={() => Navigate("/login")}
+            onClick={() => Navigate("/signin")}
           >
             SIGN IN{" "}
           </button>
