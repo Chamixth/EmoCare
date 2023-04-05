@@ -2,17 +2,22 @@ import React, { useState, useEffect } from "react";
 
 function ConsultationsList() {
   const [consultations, setConsultations] = useState([]);
+  const [loaded, setLoaded] = useState(false);
 
   useEffect(() => {
-    if (consultations.length === 0) {
+    if (!loaded) {
       fetch('/my/consultations', {
         credentials: 'include'
       })
         .then(response => response.json())
-        .then(data => setConsultations(data.Consultations))
+        .then(data => {
+          setConsultations(data.Consultations);
+          setLoaded(true);
+        })
         .catch(error => console.error(error));
     }
-  }, [consultations]); 
+  }, [loaded]);
+
   return (
     <div>
       <h1>My Consultations</h1>
@@ -29,7 +34,6 @@ function ConsultationsList() {
       </ul>
     </div>
   );
-
 }
 
 export default ConsultationsList;
