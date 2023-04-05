@@ -15,7 +15,8 @@
     buttons.forEach(button => {
       button.addEventListener('click', () => {
         const id = button.getAttribute('data-id');
-        const url = `{{ url_for('createRequest', selected_doctor_id=id) }}`;
+        console.log(id)
+        const url = `{{ url_for('createRequest', selected_doctor_id="") }} ` + id;
         window.location.href = url;
       });
     });

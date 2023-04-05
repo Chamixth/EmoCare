@@ -14,7 +14,7 @@
   <tbody>
     {% for request in requests %}
       <tr>
-        <td>{{ request["Request ID"] }}</td>
+        <td><button data-id="{{ request['Request ID'] }}"> ID: {{ request["Request ID"] }}</button></td>
         <td>{{ request["Patient ID"] }}</td>
         <td>{{ request["Meeting date"] }}</td>
         <td>{{ request["Meeting time"] }}</td>
@@ -23,4 +23,15 @@
     {% endfor %}
   </tbody>
 </table>
+<script>
+    const buttons = document.querySelectorAll('button[data-id]');
+    buttons.forEach(button => {
+      button.addEventListener('click', () => {
+        const id = button.getAttribute('data-id');
+        console.log(id)
+        const url = `{{ url_for('acceptRequest', selected_request_id="") }} ` + id;
+        window.location.href = url;
+      });
+    });
+  </script>
 {% endblock %}
