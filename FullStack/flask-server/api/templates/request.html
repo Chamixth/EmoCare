@@ -1,32 +1,17 @@
-<!DOCTYPE html>
-<html>
-<meta name="viewport" content="width=device-width" , initial-scale="1.0">
-
-{% if title %}
-<title>EmoCare - {{title}}</title>
-{% else %}
-<title>EmoCare</title>
-{% endif %}
-
-<!-- <link rel="stylesheet" href="first.css"> -->
-
-<body>
-    <di class="title">
-        <h1>Request</h1>
-    </di>
-    <div class="container">
-
-        <form action="/request/{{doctor_id}}" method="POST">
-            <p>Doctor ID : {{doctor_id}}</p>
-            <p>Patient ID : {{patient_id}}</p>
-            <input type="text" id="doctor_id" name="doctor_id" value={{doctor_id}}>
-            <input type="text" id="patient_id" name="patient_id" value={{patient_id}}>
-            <input type="date" id="meeting_date" name="meeting_date">
-            <input type="time" id="meeting_time" name="meeting_time">
-            <button>Send Request</button>
-        </form>
-
-    </div>
-</body>
-
-</html>
+{% extends 'base.html' %}
+{% block content %}
+<h1>Send Request</h1>
+<form action="/request/{{doctor_id}}" method="POST">
+    <input type="text" id="doctor_id" name="doctor_id" value={{doctor_id}}>
+    <br>
+    <input type="text" id="patient_id" name="patient_id" value={{patient_id}}>
+    <br>
+    <label for="meeting_date">Meeting Date:</label>
+    <input type="date" id="meeting_date" name="meeting_date">
+    <br>
+    <label for="meeting_time">Meeting Time:</label>
+    <input type="time" id="meeting_time" name="meeting_time">
+    <br>
+    <button type="submit">Send Request</button>
+</form>
+{% endblock %}
