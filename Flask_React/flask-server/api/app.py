@@ -75,7 +75,11 @@ def all_doctors():
 @app.route('/request/<selected_doctor_id>', methods =['GET','POST'])
 @roles_accepted('Patient')
 def createRequest(selected_doctor_id):
-    if request.method == 'POST':    
+    user = User.query.filter_by(id=selected_doctor_id).first()
+    if user is None or user.role_id !=1:
+        flash('Doctor not found.', 'error')
+        return redirect(url_for('all_doctors'))
+    if request.method == 'POST':  
         if current_user.is_authenticated:
             patient_id = request.form.get('patient_id')
             date = request.form.get('meeting_date')
@@ -133,7 +137,7 @@ def acceptRequest(selected_request_id):
             new_consult = Consultation(request_id = selected_request_id,doctor_id=selected_request.doctor_id,patient_id=selected_request.patient_id, meeting_date=selected_request.meeting_date, meeting_time=selected_request.meeting_time)
             db.session.add(new_consult)
             db.session.commit()
-            return redirect(url_for('viewRequest'))
+            return redirect(url_for('myConsultation'))
         elif request.form['action'] == 'Delete':
             selected_request = Request.query.get_or_404(selected_request_id)
             selected_request.status= "Declined"
