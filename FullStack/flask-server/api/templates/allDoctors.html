@@ -1,25 +1,23 @@
-{% extends 'base.html' %}
 {% block content %}
   <h1>All Doctors</h1>
   <ul>
     {% for doctor in doctors %}
       <li>
         <h2>{{ doctor["Doctor name"] }}</h2>
-        <button><strong>ID:</strong> {{ doctor["Doctor_id"] }}</button>
-        <button><strong>Email:</strong> {{ doctor["Doctor email"] }}</button>
+        <button data-id="{{ doctor['Doctor_id'] }}"><strong>ID:</strong> {{ doctor["Doctor_id"] }}</button>
+        <button><strong>Email :</strong> {{ doctor["Doctor email"] }}</button>
       </li>
     {% endfor %}
   </ul>
-  <button id="myButton">Click me</button>
 
   <script>
-    const myButton = document.querySelector('#myButton');
-    myButton.addEventListener('click', () => {
-      const param1 = 'value1';
-      const param2 = 'value2';
-      const queryString = `?param1=${param1}&param2=${param2}`;
-      const url = `{{ url_for('my_route') }}${queryString}`;
-      window.location.href = url; // redirect to the generated URL
+    const buttons = document.querySelectorAll('button[data-id]');
+    buttons.forEach(button => {
+      button.addEventListener('click', () => {
+        const id = button.getAttribute('data-id');
+        const url = `{{ url_for('createRequest', selected_doctor_id=id) }}`;
+        window.location.href = url;
+      });
     });
   </script>
 {% endblock %}
