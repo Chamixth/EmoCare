@@ -27,9 +27,10 @@ app = Flask(__name__)
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///C:/Users/User/GitHub/EmoCare/Flask_React/flask-server/api/emocare.db'
 app.config['SECRET_KEY'] = 'thisisasecretkey'
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
-app.config['SECURIT_PASSWORD_SALT']='thisisasecretsalt'
+app.config['SECURITY_PASSWORD_SALT']='thisisasecretsalt'
 app.config['SECURITY_REGISTERABLE']= True
 app.config['SECURITY_SEND_REGISTER_EMAIL'] = False
+app.config['UPLOAD_FOLDER'] = 'path/to/save/videos'
 
 # db = SQLAlchemy(app)
 db.init_app(app)
@@ -99,10 +100,7 @@ def myRequests():
     if current_user.is_authenticated:
         my_requests = Request.query.filter_by(patient_id=current_user.id)
         for request in my_requests:
-            if (request.decline==False):
-                requests.append({'Request ID ': request.id , 'Patient ID ': request.patient_id, 'Doctor ID ' : request.doctor_id,'Meeting date': request.meeting_date, 'Meeting time': request.meeting_time , 'Status' : "Accepted"})
-            else:
-                requests.append({'Request ID ': request.id , 'Patient ID ': request.patient_id, 'Doctor ID ' : request.doctor_id,'Meeting date': request.meeting_date, 'Meeting time': request.meeting_time , 'Status' : "Declined"})
+            requests.append({'Request ID ': request.id , 'Patient ID ': request.patient_id, 'Doctor ID ' : request.doctor_id,'Meeting date': request.meeting_date, 'Meeting time': request.meeting_time , 'Status' : request.status})
         return jsonify({'My Requests ': requests})
     else:
         return redirect(url_for('UserLogIn'))
@@ -116,7 +114,8 @@ def viewRequest():
     if current_user.is_authenticated:
         new_request = Request.query.filter_by(doctor_id=current_user.id)
         for request in new_request:
-            requests.append({'Request ID ': request.id , 'Patient ID': request.patient_id, 'Meeting date': request.meeting_date, 'Meeting time': request.meeting_time})
+            if (request.status =="Pending"):
+                requests.append({'Request ID ': request.id , 'Patient ID': request.patient_id, 'Meeting date': request.meeting_date, 'Meeting time': request.meeting_time, 'Status': request.status})
         return jsonify({'Requests':requests})
     else:
         return redirect(url_for('UserLogIn'))
@@ -129,13 +128,14 @@ def acceptRequest(selected_request_id):
     if request.method =='POST':
         if request.form['action'] == "Accept":
             selected_request = Request.query.filter_by(id=selected_request_id).first()
+            selected_request.status = "Accepted"
             new_consult = Consultation(request_id = selected_request_id,doctor_id=selected_request.doctor_id,patient_id=selected_request.patient_id, meeting_date=selected_request.meeting_date, meeting_time=selected_request.meeting_time)
             db.session.add(new_consult)
             db.session.commit()
             return redirect(url_for('viewRequest'))
         elif request.form['action'] == 'Delete':
             selected_request = Request.query.get_or_404(selected_request_id)
-            selected_request.decline = True
+            selected_request.status= "Declined"
             db.session.commit()
             # flash('Request declined.')
             return redirect(url_for('viewRequest'))
@@ -152,10 +152,29 @@ def myConsultation():
         new_consult = Consultation.query.filter_by(doctor_id=current_user.id)
         for consult in new_consult:
             consults.append({'Consultation ID': consult.id, 'Request ID ': consult.request_id ,'Doctor ID':consult.doctor_id, 'Patient ID': consult.patient_id, 'Meeting date': consult.meeting_date, 'Meeting time': consult.meeting_time})
-        return jsonify({'COnsultations':consults})
+        return jsonify({'Consultations':consults})
     else:
         return redirect(url_for('UserLogIn'))
 
+# upload video
+@app.route('/upload/video', methods=['GET', 'POST'])
+def upload_video():
+    if request.method == 'POST':
+        video_file = request.files['video_file']
+        filename = request.form['filename']
+        patient_id = request.form['patient_id']
+        if video_file and filename:
+           #Set the UPLOAD_FOLDER configuration variable to the path where you want to save the videos on the local machine.
+            video_path = os.path.join(app.config['UPLOAD_FOLDER'],filename)
+            video_file.save(video_path)
+            new_video = Video(name=filename,path=video_path,doctor_id=current_user.id,patient_id=patient_id)
+            db.session.add(new_video)
+            db.session.commit()
+            flash("Video Saved!")
+            return 'Video uploaded successfully.', 200
+        else:
+            return 'No video uploaded', 400
+    return render_template('video.html')
     
 @app.route('/doctor/dashboard')
 @roles_accepted('Doctor')

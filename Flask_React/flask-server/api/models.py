@@ -1,7 +1,8 @@
+from datetime import datetime
 from flask_sqlalchemy import SQLAlchemy
 from flask_login import UserMixin 
 from flask_security import UserMixin,RoleMixin
-from datetime import datetime,date
+
 
 
 db = SQLAlchemy()
@@ -53,7 +54,7 @@ class Request(db.Model):
     patient_id = db.Column(db.Integer, db.ForeignKey('users.id'))
     meeting_date = db.Column(db.String,nullable=False)
     meeting_time = db.Column(db.String,nullable=False)
-    decline = db.Column(db.Boolean, default=False)
+    status = db.Column(db.String, default="Pending")
 
     doctor_ref = db.relationship("User", uselist=False, foreign_keys=[doctor_id])
     patient_ref = db.relationship("User", uselist=False, foreign_keys=[patient_id])
@@ -70,5 +71,14 @@ class Consultation(db.Model):
     patient_ref = db.relationship("User", uselist=False, foreign_keys=[patient_id])
     request_ref = db.relationship("Request", uselist=False, foreign_keys=[request_id])
 
-
+class Video(db.Model):
+    id = db.Column(db.Integer,primary_key=True)
+    name = db.Column(db.String(100))
+    path = db.Column(db.String(100))
+    upload_datetime = db.Column(db.DateTime,default = datetime.utcnow)
+    doctor_id = db.Column(db.Integer, db.ForeignKey('users.id'))
+    patient_id = db.Column(db.Integer, db.ForeignKey('users.id'))
+    
+    doctor_ref = db.relationship("User", uselist=False, foreign_keys=[doctor_id])
+    patient_ref = db.relationship("User", uselist=False, foreign_keys=[patient_id])
     

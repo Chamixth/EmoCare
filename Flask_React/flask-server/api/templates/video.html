@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>Upload a Video</title>
+  </head>
+  <body>
+    <h1>Upload a Video</h1>
+    {% with messages = get_flashed_messages() %}
+    {% if messages %}
+    <ul>
+      {% for message in messages %}
+      <li>{{ message }}</li>
+      {% endfor %}
+    </ul>
+    {% endif %}
+    {% endwith %}
+    <form method="POST" action="/upload/video" enctype="multipart/form-data">
+      <label for="video_file">Choose a video to upload:</label><br>
+      <input type="file" name="video_file" id="video_file" required><br><br>
+      <label for="filename">Enter a filename:</label><br>
+      <input type="text" name="filename" id="filename" required><br><br>
+      <label for="patient_id">Enter a patient ID:</label><br>
+      <input type="text" name="patient_id" id="patient_id" required><br><br>
+      <button type="submit">Upload</button>
+    </form>
+  </body>
+</html>
