@@ -56,6 +56,10 @@ def home():
     return render_template('home.html')
  
 
+@app.route('/about')
+def about():
+    return render_template('about.html')
+
 @app.route('/patient/dashboard')
 @roles_accepted('Patient')
 def patientDashboard():
@@ -107,7 +111,7 @@ def myRequests():
         my_requests = Request.query.filter_by(patient_id=current_user.id)
         for request in my_requests:
             requests.append({'Request ID ': request.id , 'Patient ID ': request.patient_id, 'Doctor ID ' : request.doctor_id,'Meeting date': request.meeting_date, 'Meeting time': request.meeting_time , 'Status' : request.status})
-        return jsonify({'My Requests ': requests})
+        return jsonify({'My Requests': requests})
     else:
         return redirect(url_for('UserLogIn'))
 
@@ -116,16 +120,15 @@ def myRequests():
 @app.route('/view/requests')
 @roles_accepted('Doctor')
 def viewRequest():
-    requests = []
-    if current_user.is_authenticated:
-        new_request = Request.query.filter_by(doctor_id=current_user.id)
-        for request in new_request:
-            if (request.status =="Pending"):
-                requests.append({'Request ID ': request.id , 'Patient ID': request.patient_id, 'Meeting date': request.meeting_date, 'Meeting time': request.meeting_time, 'Status': request.status})
-        # return jsonify({'Requests':requests})
-        return render_template('viewRequest.html', requests = requests)
-    else:
-        return redirect(url_for('UserLogIn'))
+    # requests = []
+    # if current_user.is_authenticated:
+    requests = Request.query.filter_by(doctor_id=current_user.id, status="Pending").all()
+        # for request in new_request:
+        #    requests.append({'Request ID ': request.id , 'Patient ID': request.patient_id, 'Meeting date': request.meeting_date, 'Meeting time': request.meeting_time, 'Status': request.status})
+        # # return jsonify({'Requests':requests})
+    return render_template('viewRequest.html', requests = requests)
+    # else:
+    #     return redirect(url_for('UserLogIn'))
   
 
 # Accept a request - add to consultation - decline a request DELETE - inform the patient 

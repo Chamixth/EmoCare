@@ -14,11 +14,11 @@
   <tbody>
     {% for request in requests %}
       <tr>
-        <td><button data-id="{{ request['Request ID'] }}"> ID: {{ request["Request ID"] }}</button></td>
-        <td>{{ request["Patient ID"] }}</td>
-        <td>{{ request["Meeting date"] }}</td>
-        <td>{{ request["Meeting time"] }}</td>
-        <td>{{ request["Status"] }}</td>
+        <td><button data-id="{{ request.id}}"> ID: {{ request.id }}</button></td>
+        <td>{{ request.patient_id }}</td>
+        <td>{{ request.meeting_date }}</td>
+        <td>{{ request.meeting_time }}</td>
+        <td>{{ request.status }}</td>
       </tr>
     {% endfor %}
   </tbody>

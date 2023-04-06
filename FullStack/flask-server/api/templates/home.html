@@ -2,5 +2,18 @@
 {% extends 'base.html' %}
 
 {% block content %}
-<!-- Enter the code here -->
+<div className="home-container">
+    <div className="home-banner-container">
+      <div className="home-text-section">
+        <h1 className="primary-heading">Did you Know ?</h1>
+        <p className="primary-text">
+            E-therapy can still have its limitations, such as the lack of nonverbal cues and facial expressions that therapists rely on to understand their patients' emotions and reactions.
+            An E-therapy platform enhanced using Facial expression recognition (FER) using deep convolutional neural networks (CNNs) can be a solution.
+        </p>
+      </div>
+      <div className="home-image-section">
+        <img className="card" src={BannerImage} alt="" />
+      </div>
+    </div>
+  </div>
 {% endblock %}
