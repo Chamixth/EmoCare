@@ -1,0 +1,24 @@
+{% block content %}
+  <h1>All Doctors</h1>
+  <ul>
+    {% for doctor in doctors %}
+      <li>
+        <h2>{{ doctor["Doctor name"] }}</h2>
+        <button data-id="{{ doctor['Doctor_id'] }}"><strong>ID:</strong> {{ doctor["Doctor_id"] }}</button>
+        <button><strong>Email :</strong> {{ doctor["Doctor email"] }}</button>
+      </li>
+    {% endfor %}
+  </ul>
+
+  <script>
+    const buttons = document.querySelectorAll('button[data-id]');
+    buttons.forEach(button => {
+      button.addEventListener('click', () => {
+        const id = button.getAttribute('data-id');
+        console.log(id)
+        const url = `{{ url_for('createRequest', selected_doctor_id="") }} ` + id;
+        window.location.href = url;
+      });
+    });
+  </script>
+{% endblock %}

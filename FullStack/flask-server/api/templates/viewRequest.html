@@ -1,0 +1,37 @@
+{% extends 'base.html' %}
+{% block content %}
+<h1>Requests</h1>
+<table>
+  <thead>
+    <tr>
+      <th>Request ID</th>
+      <th>Patient ID</th>
+      <th>Meeting Date</th>
+      <th>Meeting Time</th>
+      <th>Status</th>
+    </tr>
+  </thead>
+  <tbody>
+    {% for request in requests %}
+      <tr>
+        <td><button data-id="{{ request.id}}"> ID: {{ request.id }}</button></td>
+        <td>{{ request.patient_id }}</td>
+        <td>{{ request.meeting_date }}</td>
+        <td>{{ request.meeting_time }}</td>
+        <td>{{ request.status }}</td>
+      </tr>
+    {% endfor %}
+  </tbody>
+</table>
+<script>
+    const buttons = document.querySelectorAll('button[data-id]');
+    buttons.forEach(button => {
+      button.addEventListener('click', () => {
+        const id = button.getAttribute('data-id');
+        console.log(id)
+        const url = `{{ url_for('acceptRequest', selected_request_id="") }} ` + id;
+        window.location.href = url;
+      });
+    });
+  </script>
+{% endblock %}

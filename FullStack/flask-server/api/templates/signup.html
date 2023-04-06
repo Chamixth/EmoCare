@@ -1,0 +1,34 @@
+<!-- signup.html -->
+{% extends 'base.html' %}
+
+{% block content %}
+<h1>Sign Up</h1>
+<form method="POST" action="/signup">
+  <!-- Give the role ids in the value -->
+  <div class="radio-container">
+    <input type="radio" name="options" id="option1" value="1" required>
+    <label for="option1">Doctor</label>
+    <input type="radio" name="options" id="option2" value="2">
+    <label for="option2">Patient</label>
+  </div>
+  <div class="form-group">
+    <input type="text" name="name" class="form-style" placeholder="Your Name" id="logname" autocomplete="off">
+    <i class="input-icon uil uil-user"></i>
+  </div>
+  <div class="form-group mt-2">
+    <input type="email" name="email" class="form-style" placeholder="Your Email" id="logemail" autocomplete="off">
+    <i class="input-icon uil uil-at"></i>
+  </div>
+  <div class="form-group mt-2">
+    <input type="text" name="username" class="form-style" placeholder="Your Username" id="logusername"
+      autocomplete="off">
+    <i class="input-icon uil uil-user"></i>
+  </div>
+  <div class="form-group mt-2">
+    <input type="password" name="password" class="form-style" placeholder="Your Password" id="logpass"
+      autocomplete="off">
+    <i class="input-icon uil uil-lock-alt"></i>
+  </div>
+  <button class="btn mt-4">Submit</button>
+</form>
+{% endblock %}
