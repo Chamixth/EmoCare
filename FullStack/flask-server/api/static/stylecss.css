@@ -1,5 +1,3 @@
-
-
 h1 {
     font-size: 2rem;
     font-weight: bold;
@@ -336,28 +334,29 @@ form {
   }
   
   .home-banner-container {
-    width: 100%;
-    height: 100%;
-    background-color: #f0f0f0;
     display: flex;
-    justify-content: center;
+    justify-content: space-between;9
     align-items: center;
+    flex-direction: row;
+    max-width: 1200px;
+    margin: 0 20px;
   }
   
   .home-text-section {
-    text-align: center;
-    padding: 2rem;
+    text-align: left;
+    margin-right: 20px;
   }
   
   .primary-heading {
-    font-size: 3rem;
-    margin-bottom: 1rem;
+    font-size: 48px;
+    font-weight: bold;
+    color: #0069d9;
+    margin-bottom: 20px;
+    margin-right: 10%;
   }
   
   .primary-text {
-    font-size: 1.2rem;
-    line-height: 1.5;
-    color: #333;
+    font-size: 24px;
+    margin-bottom: 20px;
   }
-   
   
