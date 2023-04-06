@@ -1,0 +1,26 @@
+{% extends 'base.html' %}
+{% block content %}
+<h1>My Requests</h1>
+<table>
+  <thead>
+    <tr>
+      <th>Request ID</th>
+      <th>Patient ID</th>
+      <th>Meeting Date</th>
+      <th>Meeting Time</th>
+      <th>Status</th>
+    </tr>
+  </thead>
+  <tbody>
+    {% for request in requests %}
+      <tr>
+        <td>{{ request.id }}</td>
+        <td>{{ request.patient_id }}</td>
+        <td>{{ request.meeting_date }}</td>
+        <td>{{ request.meeting_time }}</td>
+        <td>{{ request.status }}</td>
+      </tr>
+    {% endfor %}
+  </tbody>
+</table>
+{% endblock %}

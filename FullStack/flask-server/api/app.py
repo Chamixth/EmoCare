@@ -13,10 +13,10 @@ from models import User,Role,user_roles, Request, Consultation
 
 # To create the db:
 # python
-# from models import db, Doctor, Patient 
+# from models import db
 # from app import app
 # db.create_all()
-# quit()/exit()
+# exit()
 
 # To get PATH of sqlite3:
 # $env:PATH += ';C:\SQLite3'
@@ -65,6 +65,22 @@ def about():
 def patientDashboard():
     return render_template('patientDashboard.html')
 
+def insert_role(role_id, role_name):
+    role = Role.query.filter_by(id=1).first()
+    if not role:
+        doctor_role = Role(id=1,name='Doctor')
+        db.session.add(doctor_role)
+        db.session.commit()
+    else:
+        doctor_role = role
+    role = Role.query.filter_by(id=2).first()
+    if not role:
+        patient_role = Role(id=2,name='Patient')
+        db.session.add(patient_role)
+        db.session.commit()
+    else:
+        patient_role = role
+
 @app.route('/all/doctors', methods=['GET','POST'])
 @roles_accepted('Patient')
 def all_doctors():
@@ -106,14 +122,15 @@ def createRequest(selected_doctor_id):
 @app.route('/my/requests')
 @roles_accepted('Patient')
 def myRequests():
-    requests = []
-    if current_user.is_authenticated:
-        my_requests = Request.query.filter_by(patient_id=current_user.id)
-        for request in my_requests:
-            requests.append({'Request ID ': request.id , 'Patient ID ': request.patient_id, 'Doctor ID ' : request.doctor_id,'Meeting date': request.meeting_date, 'Meeting time': request.meeting_time , 'Status' : request.status})
-        return jsonify({'My Requests': requests})
-    else:
-        return redirect(url_for('UserLogIn'))
+    # requests = []
+    # if current_user.is_authenticated:
+    my_requests = Request.query.filter_by(patient_id=current_user.id).all()
+        # for request in my_requests:
+            # requests.append({'Request ID ': request.id , 'Patient ID ': request.patient_id, 'Doctor ID ' : request.doctor_id,'Meeting date': request.meeting_date, 'Meeting time': request.meeting_time , 'Status' : request.status})
+        # return jsonify({'My Requests': requests})
+    return render_template('myRequests.html', requests = my_requests)
+    # else:
+    #     return redirect(url_for('UserLogIn'))
 
 
 # A logged in doctor to see the requests recieved
@@ -157,15 +174,15 @@ def acceptRequest(selected_request_id):
 @app.route('/my/consultations')
 @roles_accepted('Doctor')
 def myConsultation():
-    consults = []
-    if current_user.is_authenticated:
-        new_consult = Consultation.query.filter_by(doctor_id=current_user.id)
-        for consult in new_consult:
-            consults.append({'Consultation ID': consult.id, 'Request ID ': consult.request_id ,'Doctor ID':consult.doctor_id, 'Patient ID': consult.patient_id, 'Meeting date': consult.meeting_date, 'Meeting time': consult.meeting_time})
+    # consults = []
+    # if current_user.is_authenticated:
+    new_consult = Consultation.query.filter_by(doctor_id=current_user.id)
+        # for consult in new_consult:
+        #     consults.append({'Consultation ID': consult.id, 'Request ID ': consult.request_id ,'Doctor ID':consult.doctor_id, 'Patient ID': consult.patient_id, 'Meeting date': consult.meeting_date, 'Meeting time': consult.meeting_time})
         # return jsonify({'Consultations':consults})
-        return render_template('consultations.html',consultations=consults)
-    else:
-        return redirect(url_for('UserLogIn'))
+    return render_template('consultations.html',consultations=new_consult)
+    # else:
+    #     return redirect(url_for('UserLogIn'))
 
 # upload video
 @app.route('/upload/video', methods=['GET', 'POST'])
@@ -203,11 +220,13 @@ def UserLogIn():
 
 @app.route('/signup', methods=['POST'])
 def SignUp():
-   
     name = request.form.get('name')
     email = request.form.get('email')
     username = request.form.get('username')
     password = request.form.get('password')
+
+    insert_role(1, 'Doctor')
+    insert_role(2, 'Patient')
 
     # check for exiting username and email !!
     user = User.query.filter_by(username=username).first()

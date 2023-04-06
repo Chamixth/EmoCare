@@ -15,12 +15,12 @@
     <tbody>
       {% for consult in consultations %}
         <tr>
-          <td>{{ consult['Consultation ID'] }}</td>
-          <td>{{ consult['Request ID'] }}</td>
-          <td>{{ consult['Doctor ID'] }}</td>
-          <td>{{ consult['Patient ID'] }}</td>
-          <td>{{ consult['Meeting date'] }}</td>
-          <td>{{ consult['Meeting time'] }}</td>
+          <td>{{ consult.id}}</td>
+          <td>{{ consult.request_id }}</td>
+        <td>{{ consult.doctor_id }}</td>
+        <td>{{ consult.patient_id }}</td>
+        <td>{{ consult.meeting_date }}</td>
+        <td>{{ consult.meeting_time }}</td>
         </tr>
       {% endfor %}
     </tbody>

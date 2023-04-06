@@ -40,9 +40,9 @@ export default function Video() {
               </div>
               <AgoraUIKit
                 rtcProps={{
-                  appId: '15cb7bee7eae4a78a31dc66d95b1f927',
-                  channel: 'test',
-                  token: '007eJxTYJiWc33Wod/Kcu1bJr6+wyC3XNKgbeHl151HNrVO3ZwSyd+mwGBompxknpSaap6amGqSaG6RaGyYkmxmlmJpmmSYZmlknimtntIQyMiQaKjCzMgAgSA+C0NJanEJAwMAxO0f4w==', // add your token if using app in secured mode
+                  appId: 'ac0370891a494468b3624c8c4a073116',
+                  channel: 'therapy',
+                  token: '007eJxTYLi677KIQO0Fy+Ry2/rFHX339vkJVc/7I/zrWrxIOpthkY0CQ2KygbG5gYWlYaKJpYmJmUWSsZmRSbJFskmigbmxoaHZBnG9lIZARoZIzRAWRgYIBPHZGUoyUosSCyoZGAA/kB38', // add your token if using app in secured mode
                   role: isHost ? 'host' : 'audience',
                   layout: isPinned ? layout.pin : layout.grid,
                   enableScreensharing: false
